@@ -7,6 +7,7 @@
 #include <sstream>
 #include <vector>
 #include <unordered_map>
+#include <limits>
 
 /**
  * The Config class is used to store and retrieve the player's name, scores.
