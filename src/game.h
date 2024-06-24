@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <condition_variable>
 #include <mutex>
 #include <random>
 #include "SDL.h"
