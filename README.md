@@ -31,7 +31,12 @@ See: `config.cpp`(line 6, line 57), `config.h`
 [x] One or more classes are added to the project with appropriate access specifiers for class members.
 [x] Class constructors utilize member initialization lists.
 [x] Classes abstract implementation details from their interfaces.
-See: `config.cpp`, `config.h(line 17)`
+See: `config.cpp`, `config.h`(line 17)
+
+### 5. Memory Management
+[x] The project makes use of references in function declarations.
+
+See: `renderer.cpp` (line 41)
 
 
 ## Dependencies for Running Locally
