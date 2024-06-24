@@ -6,6 +6,7 @@
 #include "controller.h"
 #include "renderer.h"
 #include "snake.h"
+#include "config.h"
 
 class Game {
  public:
@@ -16,7 +17,10 @@ class Game {
   int GetSize() const;
 
  private:
+  const std::string kConfigFile{"config.txt"};
+
   Snake snake;
+  Config cfg;
   SDL_Point food;
 
   std::random_device dev;

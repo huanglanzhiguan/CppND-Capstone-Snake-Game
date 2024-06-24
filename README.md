@@ -1,12 +1,38 @@
-# CPPND: Capstone Snake Game Example
+# Project: Snake Game
 
-This is a starter repo for the Capstone project in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213). The code for this repo was inspired by [this](https://codereview.stackexchange.com/questions/212296/snake-game-in-c-with-sdl) excellent StackOverflow post and set of responses.
+## Overview
+This is the final project for the Udacity C++ Nanodegree Program. <br>
+It's adapted from the Snake Game example provided by the course. <br>
+[Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213).
 
 <img src="snake_game.gif"/>
 
-The Capstone Project gives you a chance to integrate what you've learned throughout this program. This project will become an important part of your portfolio to share with current and future colleagues and employers.
+## New Features
+1. **Score**: The game now keep track of the player's score. When the game is started, score history is printed. <br>
+   Then player name is requested. Once the game is over, the player's score is saved to a file. <br>
 
-In this project, you can build your own C++ application or extend this Snake game, following the principles you have learned throughout this Nanodegree Program. This project will demonstrate that you can independently create applications using a wide range of C++ features.
+## Rubric Points Addressed
+### 1. README
+[x] README.md is included. <br>
+[x] The README indicates the new features of the project. <br>
+[x] The README includes information about each rubric point addressed. <br>
+
+### 2. Compiling and Testing
+[x] Use cmake and make to compile the project as it can be seen in the Basic Build Instructions section.
+
+### 3. Loops, Functions, I/O <br>
+[x] The project demonstrates an understanding of C++ functions and control structures. <br>
+[x] The project reads data from a file and process the data, or the program writes data to a file. <br>
+[x] The project accepts user input and processes the input. <br>
+`Config` class is used to read player's name and initial speed from terminal. Load and save score history from/to file. <br>
+See: `config.cpp`(line 6, line 57), `config.h`
+
+### 4. Object Oriented Programming
+[x] One or more classes are added to the project with appropriate access specifiers for class members.
+[x] Class constructors utilize member initialization lists.
+[x] Classes abstract implementation details from their interfaces.
+See: `config.cpp`, `config.h(line 17)`
+
 
 ## Dependencies for Running Locally
 * cmake >= 3.7

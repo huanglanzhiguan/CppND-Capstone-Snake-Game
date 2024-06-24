@@ -7,6 +7,10 @@ Game::Game(std::size_t grid_width, std::size_t grid_height)
       engine(dev()),
       random_w(0, static_cast<int>(grid_width - 1)),
       random_h(0, static_cast<int>(grid_height - 1)) {
+  cfg.LoadFromFile(kConfigFile);
+  cfg.PrintScores();
+  cfg.AskForConfig();
+  snake.speed = static_cast<float>(cfg.snake_speed) / 10.0f;
   PlaceFood();
 }
 
@@ -47,6 +51,10 @@ void Game::Run(Controller const &controller, Renderer &renderer,
     if (frame_duration < target_frame_duration) {
       SDL_Delay(target_frame_duration - frame_duration);
     }
+  }
+  if (score > cfg.GetHighestScore()) {
+    cfg.SetHighestScore(score);
+    cfg.SaveToFile(kConfigFile);
   }
 }
 
