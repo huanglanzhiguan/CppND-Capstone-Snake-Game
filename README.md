@@ -31,12 +31,20 @@ See: `config.cpp`(line 6, line 57), `config.h`
 [x] One or more classes are added to the project with appropriate access specifiers for class members.
 [x] Class constructors utilize member initialization lists.
 [x] Classes abstract implementation details from their interfaces.
-See: `config.cpp`, `config.h`(line 17)
+See: `config.cpp`, `config.h`(line 17), etc
 
 ### 5. Memory Management
 [x] The project makes use of references in function declarations.
+[x] The project uses scope / Resource Acquisition Is Initialization (RAII) where appropriate.
+[x] The project uses smart pointers instead of raw pointers.
 
-See: `renderer.cpp` (line 41)
+See: `renderer.cpp` (line 41), `game.cpp` (line 90), etc
+
+### 6. Concurrency
+[x] The project uses multithreading.
+[x] A mutex or lock is used in the project.
+[x] A condition variable is used in the project.
+See: `game.cpp`, a separate thread is used for placing food.
 
 
 ## Dependencies for Running Locally

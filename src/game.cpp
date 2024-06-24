@@ -1,5 +1,6 @@
 #include "game.h"
 #include <iostream>
+#include <thread>
 #include "SDL.h"
 
 Game::Game(std::size_t grid_width, std::size_t grid_height)
@@ -11,7 +12,8 @@ Game::Game(std::size_t grid_width, std::size_t grid_height)
   cfg.PrintScores();
   cfg.AskForConfig();
   snake.speed = static_cast<float>(cfg.snake_speed) / 10.0f;
-  PlaceFood();
+  food.x = random_w(engine);
+  food.y = random_h(engine);
 }
 
 void Game::Run(Controller const &controller, Renderer &renderer,
@@ -21,7 +23,9 @@ void Game::Run(Controller const &controller, Renderer &renderer,
   Uint32 frame_end;
   Uint32 frame_duration;
   int frame_count = 0;
-  bool running = true;
+  running = true;
+
+  std::thread placeFoodThread = std::thread(&Game::PlaceFood, this);
 
   while (running) {
     frame_start = SDL_GetTicks();
@@ -56,20 +60,21 @@ void Game::Run(Controller const &controller, Renderer &renderer,
     cfg.SetHighestScore(score);
     cfg.SaveToFile(kConfigFile);
   }
+
+  cv.notify_one();
+  placeFoodThread.join();
 }
 
 void Game::PlaceFood() {
-  int x, y;
+  std::unique_lock<std::mutex> lock(mtx);
   while (true) {
-    x = random_w(engine);
-    y = random_h(engine);
-    // Check that the location is not occupied by a snake item before placing
-    // food.
-    if (!snake.SnakeCell(x, y)) {
-      food.x = x;
-      food.y = y;
-      return;
-    }
+    cv.wait(lock, [this] { return !foodPlaced || !running; });
+    if (!running) return;
+
+    food.x = random_w(engine);
+    food.y = random_h(engine);
+    foodPlaced = true;
+    cv.notify_one();
   }
 }
 
@@ -82,9 +87,12 @@ void Game::Update() {
   int new_y = static_cast<int>(snake.head_y);
 
   // Check if there's food over here
+  std::unique_lock<std::mutex> lock(mtx);
   if (food.x == new_x && food.y == new_y) {
     score++;
-    PlaceFood();
+    foodPlaced = false;
+    cv.notify_one();
+    cv.wait(lock, [this] { return foodPlaced; });
     // Grow snake and increase speed.
     snake.GrowBody();
     snake.speed += 0.02;

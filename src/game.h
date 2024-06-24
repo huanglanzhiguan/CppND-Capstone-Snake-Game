@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <mutex>
 #include <random>
 #include "SDL.h"
 #include "controller.h"
@@ -32,6 +33,10 @@ class Game {
 
   void PlaceFood();
   void Update();
+  std::mutex mtx;
+  std::condition_variable cv;
+  bool foodPlaced{false};
+  bool running{false};
 };
 
 #endif
